@@ -41,4 +41,26 @@ body,
   .flex-end {
     @apply flex justify-end items-center;
   }
+
+  .text-hover {
+    @apply hover:text-darkOrange dark:hover:text-lightTeal;
+  }
+
+  .hamburger-top,
+  .hamburger-middle,
+  .hamburger-bottom {
+    @apply w-[24px] h-[2px] absolute top-0 left-0 transform transition-all rotate-0 duration-200 bg-darkOrange dark:bg-lightTeal;
+  }
+  .open-ham {
+    @apply transform rotate-90;
+  }
+  .open-ham .hamburger-middle {
+    @apply hidden;
+  }
+  .open-ham .hamburger-top {
+    @apply -rotate-45 translate-y-[13px];
+  }
+  .open-ham .hamburger-bottom {
+    @apply rotate-45;
+  }
 }

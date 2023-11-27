@@ -17,7 +17,7 @@ const Home = () => {
         src='/collage.jpg'
         alt='collage'
         fill
-        objectFit='cover'
+        style={{ objectFit: 'cover' }}
         className='opacity-30 dark:bg-dark-100'
       />
       <div
