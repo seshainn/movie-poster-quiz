@@ -21,7 +21,7 @@ body,
     @apply flex flex-col justify-center items-center min-h-screen font-sans;
   }
   .btn {
-    @apply border-2 border-blue-800 bg-blue-800 text-gray-200 rounded-md tracking-tight flex-center space-x-1 hover:bg-gray-800 hover:border-gray-800;
+    @apply border-2 border-darkOrange dark:border-lightTeal text-gray-200 rounded-md tracking-tight flex-center space-x-1;
   }
 }
 
@@ -44,6 +44,10 @@ body,
 
   .text-hover {
     @apply hover:text-darkOrange dark:hover:text-lightTeal;
+  }
+
+  .bg-color {
+    @apply bg-darkOrange dark:bg-lightTeal;
   }
 
   .hamburger-top,

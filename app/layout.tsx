@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/context/ThemeProvider'
+import Providers from './_components/Providers'
+import AuthProvider from './_components/AuthProvider'
 
 export const metadata: Metadata = {
   title: 'Movie Poster Quiz',
@@ -16,9 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+      <ThemeProvider>
+        <body>
+          <AuthProvider>
+            <Providers>{children}</Providers>
+          </AuthProvider>
+        </body>
+      </ThemeProvider>
     </html>
   )
 }

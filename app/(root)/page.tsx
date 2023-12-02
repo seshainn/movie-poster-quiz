@@ -11,6 +11,7 @@ const headingFont = localFont({ src: '../../public/fonts/font.woff2' })
 
 const Home = () => {
   const { mode, setMode } = useTheme()
+
   return (
     <>
       <Image
