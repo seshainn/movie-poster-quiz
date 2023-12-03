@@ -3,13 +3,11 @@ import React from 'react'
 import localFont from 'next/font/local'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { useTheme } from '@/context/ThemeProvider'
 import Image from 'next/image'
 
 const headingFont = localFont({ src: '../../../public/fonts/font.woff2' })
 
 const Page = () => {
-  const { mode, setMode } = useTheme()
   return (
     <>
       <Image

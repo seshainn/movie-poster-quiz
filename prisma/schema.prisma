@@ -37,10 +37,12 @@ model Movie {
 
 // Define the User model
 model User {
-  id             String  @id @default(uuid())
-  email          String  @unique
+  id             String    @id @default(uuid())
+  email          String    @unique
   numberOfGames  Int
   highestScore   Int
   createdMovies  Movie[]
-  gameInProgress Movie[] @relation("UserGameInProgress")
+  gameInProgress Movie[]   @relation("UserGameInProgress")
+  otp            Int?
+  otpCreatedAt   DateTime? @default(now())
 }
