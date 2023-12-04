@@ -43,6 +43,6 @@ model User {
   highestScore   Int
   createdMovies  Movie[]
   gameInProgress Movie[]   @relation("UserGameInProgress")
-  otp            Int?
+  otp            String?
   otpCreatedAt   DateTime? @default(now())
 }

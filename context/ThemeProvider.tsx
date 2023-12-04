@@ -5,11 +5,20 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 interface ThemeContextType {
   mode: string
   setMode: (mode: string) => void
+  otpSuccess: boolean
+  setOtpSuccess: (otpSuccess: boolean) => void
+  userEmail: string
+  setUserEmail: (userEmail: string) => void
+  loginMessage: string
+  setLoginMessage: (loginMessage: string) => void
 }
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [mode, setMode] = useState('')
+  const [otpSuccess, setOtpSuccess] = useState(false)
+  const [userEmail, setUserEmail] = useState('')
+  const [loginMessage, setLoginMessage] = useState('Login Form')
 
   const handleThemeChange = () => {
     if (
@@ -29,7 +38,18 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   }, [mode])
 
   return (
-    <ThemeContext.Provider value={{ mode, setMode }}>
+    <ThemeContext.Provider
+      value={{
+        mode,
+        setMode,
+        otpSuccess,
+        setOtpSuccess,
+        userEmail,
+        setUserEmail,
+        loginMessage,
+        setLoginMessage,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   )
