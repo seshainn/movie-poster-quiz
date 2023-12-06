@@ -26,7 +26,7 @@ export const options: AuthOptions = {
       // profile is returned by GitHub/Google from which we are then returning User. Role is created and added to user. The User, we are then using to populate role on JWT and session in the callbacks. This part of code is executed when the corresponding button is clicked on nextauth login form or when signIn() is executed on custom login form.
       profile(profile) {
         let userRole = 'GitHub User'
-        if (profile?.email == 'seshu.giri@gmail.com') {
+        if (profile?.email == process.env.NEXT_AUTH_ADMIN) {
           userRole = 'admin'
         }
         return {
@@ -40,7 +40,7 @@ export const options: AuthOptions = {
     GoogleProvider({
       profile(profile) {
         let userRole = 'Google User'
-        if (profile?.email == 'seshu.giri@gmail.com') {
+        if (profile?.email == process.env.NEXT_AUTH_ADMIN) {
           userRole = 'admin'
         }
 
@@ -61,7 +61,7 @@ export const options: AuthOptions = {
       },
       async authorize(credentials, req) {
         let userRole = 'Custom User'
-        if (credentials?.email == 'seshu.giri@gmail.com') {
+        if (credentials?.email == process.env.NEXT_AUTH_ADMIN) {
           userRole = 'admin'
         }
 
@@ -73,6 +73,7 @@ export const options: AuthOptions = {
         }
 
         if (user) {
+          console.log(user)
           return user
         } else {
           return null

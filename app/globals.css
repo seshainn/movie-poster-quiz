@@ -8,8 +8,11 @@
 }
 
 html,
-body,
-:root {
+body {
+  height: 100%;
+}
+
+.container {
   height: 100%;
 }
 
@@ -46,8 +49,16 @@ body,
     @apply hover:text-darkOrange dark:hover:text-lightTeal;
   }
 
+  .btn-hover {
+    @apply hover:bg-orange-700 dark:hover:bg-darkTeal;
+  }
+
   .bg-color {
     @apply bg-darkOrange dark:bg-lightTeal;
+  }
+
+  .text-color {
+    @apply text-darkOrange dark:text-lightTeal;
   }
 
   .hamburger-top,

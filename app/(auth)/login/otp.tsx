@@ -32,7 +32,6 @@ const Otpform = () => {
               redirect: true,
             })
           } else {
-            console.log('I am Here')
             setLoginMessage('You OTP is expired. Please login again.')
             setOtpSuccess(false)
             router.push('/login')

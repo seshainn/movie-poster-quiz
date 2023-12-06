@@ -22,7 +22,6 @@ enum Answer {
 model Movie {
   id             String  @id @default(uuid())
   right          String
-  question       String
   wrong1         String
   wrong2         String
   wrong3         String

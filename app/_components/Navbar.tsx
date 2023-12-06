@@ -15,7 +15,7 @@ const Navbar = () => {
   //useSession hook is pretty slow which causes session to not exist during loading time. It is always advisable to use 'loading' status when rendering page.
   return (
     <>
-      <div className='w-full h-14 border-b shadow-lg backdrop-blur bg-slate-100 dark:bg-dark-100 flex items-center relative z-10'>
+      <div className='w-full h-14 border-b shadow-lg backdrop-blur bg-slate-100 dark:bg-dark-100 flex items-center fixed z-10'>
         <Image
           src='/collage-nav.jpg'
           alt='collage'
@@ -67,13 +67,13 @@ const Navbar = () => {
                 <Link href='/about'>About</Link>
               </div>
               <div className='text-md font-semibold mr-15 dark:text-light-700 text-hover max-md:hidden'>
-                <Link href='/about'>Profile</Link>
+                <Link href='/profile'>Profile</Link>
               </div>
               <div className='text-md font-semibold mr-15 dark:text-light-700 text-hover max-md:hidden'>
                 <Link href='/about'>Donate</Link>
               </div>
               <div className='text-md font-semibold mr-15 dark:text-light-700 text-hover max-md:hidden'>
-                <Link href='/about'>Create-Question</Link>
+                <Link href='/create-question'>Create-Question</Link>
               </div>
               {!session ? (
                 <div className='btn bg-color text-hover px-4 rounded-md text-black font-semibold hover:text-darkTeal dark:hover:text-darkTeal'>
@@ -118,7 +118,7 @@ const Navbar = () => {
                     <Link href='/donate' className='text-hover'>
                       Donate
                     </Link>
-                    <Link href='/createquestion' className='text-hover'>
+                    <Link href='/create-question' className='text-hover'>
                       Create Question
                     </Link>
                   </div>

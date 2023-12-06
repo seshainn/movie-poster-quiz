@@ -54,6 +54,11 @@ export const appRouter = router({
 
       return { ...existingUser, success: true }
     }),
+  uploadImage: publicProcedure
+    .input(z.instanceof(FormData))
+    .mutation(async ({ input }) => {
+      console.log('inside uploadImage procedure ', input)
+    }),
 })
 
 export type AppRouter = typeof appRouter
