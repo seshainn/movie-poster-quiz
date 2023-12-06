@@ -73,7 +73,6 @@ export const options: AuthOptions = {
         }
 
         if (user) {
-          console.log(user)
           return user
         } else {
           return null

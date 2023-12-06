@@ -25,6 +25,7 @@ const movieSchema = z.object({
 
 const Page = () => {
   const [fileSelected, setFileSelected] = useState('')
+  const [userMessage, setUserMessage] = useState('')
 
   const { register, handleSubmit, formState, reset, setError, setValue } =
     useForm<z.infer<typeof movieSchema>>({
@@ -43,7 +44,6 @@ const Page = () => {
   const { mutate } = trpc.uploadImage.useMutation()
 
   const submitForm = async (data: z.infer<typeof movieSchema>) => {
-    console.log(data.uploadedFile)
     const formData = new FormData()
     formData.append('file', data.uploadedFile)
     formData.append('upload_preset', 'qgarwh58') //unsigned upload preset at cloudinary
@@ -59,14 +59,31 @@ const Page = () => {
         }
       )
       const resdata = await response.json()
-      console.log(resdata.public_id, resdata.secure_url)
+      mutate(
+        {
+          id: resdata.public_id,
+          right: data.right,
+          wrong1: data.wrong1,
+          wrong2: data.wrong2,
+          wrong3: data.wrong3,
+        },
+        {
+          onSuccess: ({ success }) => {
+            if (success) {
+              setUserMessage(
+                'Movie successfully added to database for approval.'
+              )
+            }
+          },
+        }
+      )
     } catch (error) {
-      console.log('error occurred during cloudinary upload: ', error)
+      setUserMessage('Error occurred during cloudinary upload. Contact admin.')
     }
-    //mutate(formData)
     reset()
     setValue('uploadedFile', null)
     setFileSelected('')
+    setUserMessage('')
   }
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -168,6 +185,9 @@ const Page = () => {
             >
               Submit
             </button>
+            <h1 className='text-xl font-bold backdrop-blur-xs text-color'>
+              {userMessage}
+            </h1>
           </div>
         </form>
       </div>

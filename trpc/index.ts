@@ -1,6 +1,5 @@
-import { router, publicProcedure } from './trpc'
+import { router, publicProcedure, privateProcedure } from './trpc'
 import { db } from '@/db'
-import { getServerSession } from 'next-auth'
 import { z } from 'zod'
 import { cryptoRandomStringAsync } from 'crypto-random-string'
 import { sendEmail } from '@/utils/mail'
@@ -54,10 +53,30 @@ export const appRouter = router({
 
       return { ...existingUser, success: true }
     }),
-  uploadImage: publicProcedure
-    .input(z.instanceof(FormData))
-    .mutation(async ({ input }) => {
-      console.log('inside uploadImage procedure ', input)
+  uploadImage: privateProcedure
+    .input(
+      z.object({
+        right: z.string(),
+        wrong1: z.string(),
+        wrong2: z.string(),
+        wrong3: z.string(),
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const approved = ctx.role === 'admin' ? true : false
+      await db.movie.create({
+        data: {
+          id: input.id,
+          right: input.right,
+          wrong1: input.wrong1,
+          wrong2: input.wrong2,
+          wrong3: input.wrong3,
+          chosen: 'EMPTY',
+          approved: approved,
+        },
+      })
+      return { success: true }
     }),
 })
 
