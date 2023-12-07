@@ -9,7 +9,7 @@ import { FileEdit } from 'lucide-react'
 import { trpc } from '@/app/_trpc/client'
 
 const movieSchema = z.object({
-  right: z.string().min(1),
+  rightans: z.string().min(1),
   wrong1: z.string().min(1),
   wrong2: z.string().min(1),
   wrong3: z.string().min(1),
@@ -31,7 +31,7 @@ const Page = () => {
     useForm<z.infer<typeof movieSchema>>({
       resolver: zodResolver(movieSchema),
       defaultValues: {
-        right: '',
+        rightans: '',
         wrong1: '',
         wrong2: '',
         wrong3: '',
@@ -62,7 +62,8 @@ const Page = () => {
       mutate(
         {
           id: resdata.public_id,
-          right: data.right,
+          url: resdata.secure_url,
+          rightans: data.rightans,
           wrong1: data.wrong1,
           wrong2: data.wrong2,
           wrong3: data.wrong3,
@@ -126,10 +127,10 @@ const Page = () => {
               type='text'
               autoComplete='off'
               placeholder='Enter movie name'
-              {...register('right')}
+              {...register('rightans')}
               className='w-full max-w-md bg-orange-400 bg-opacity-60 dark:bg-teal-100 p-2 rounded-lg text-center placeholder:text-lg placeholder:text-gray-500 text-black font-semibold text-lg'
             />
-            <p className='text-red-500 text-sm'>{errors.right?.message}</p>
+            <p className='text-red-500 text-sm'>{errors.rightans?.message}</p>
             <input
               type='text'
               autoComplete='off'

@@ -56,7 +56,8 @@ export const appRouter = router({
   uploadImage: privateProcedure
     .input(
       z.object({
-        right: z.string(),
+        rightans: z.string(),
+        url: z.string(),
         wrong1: z.string(),
         wrong2: z.string(),
         wrong3: z.string(),
@@ -68,16 +69,26 @@ export const appRouter = router({
       await db.movie.create({
         data: {
           id: input.id,
-          right: input.right,
+          url: input.url,
+          rightans: input.rightans,
           wrong1: input.wrong1,
           wrong2: input.wrong2,
           wrong3: input.wrong3,
-          chosen: 'EMPTY',
+          chosen: '',
           approved: approved,
         },
       })
       return { success: true }
     }),
+  moviesForNewgame: privateProcedure.query(async () => {
+    const movies = await db.$queryRaw`
+    SELECT id, rightans, wrong1, wrong2, wrong3, chosen, RAND() as randomNumber
+    FROM Movie
+    WHERE approved = true
+    ORDER BY randomNumber
+    LIMIT 10;`
+    return movies
+  }),
 })
 
 export type AppRouter = typeof appRouter

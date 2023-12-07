@@ -20,12 +20,12 @@ const Dashboard = () => {
       />
       <div className={`${headingFont.className} flex-center flex-col mt-40`}>
         <div className='px-4 py-2 bg-gradient-to-r from-lightOrange to-darkOrange dark:from-lightTeal dark:to-darkTeal text-2xl rounded-md mt-10 hover:text-darkTeal flex-center space-x-1 font-semibold'>
-          <Link href='/login'>Resume Game</Link>
+          <Link href='/'>Resume Game</Link>
           <ArrowRight />
         </div>
 
         <div className='px-4 py-2 bg-gradient-to-r from-lightOrange to-darkOrange dark:from-lightTeal dark:to-darkTeal text-2xl rounded-md mt-20 hover:text-darkTeal flex-center space-x-1 font-semibold'>
-          <Link href='/login'>New Game</Link>
+          <Link href='/newgame'>New Game</Link>
           <ArrowRight />
         </div>
       </div>
