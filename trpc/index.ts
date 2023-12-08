@@ -66,23 +66,44 @@ export const appRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       const approved = ctx.role === 'admin' ? true : false
-      await db.movie.create({
-        data: {
-          id: input.id,
-          url: input.url,
-          rightans: input.rightans,
-          wrong1: input.wrong1,
-          wrong2: input.wrong2,
-          wrong3: input.wrong3,
-          chosen: '',
-          approved: approved,
-        },
-      })
+      if (ctx?.email) {
+        const existingUser = await db.user.findUnique({
+          where: {
+            email: ctx?.email,
+          },
+        })
+        if (existingUser) {
+          await db.movie.create({
+            data: {
+              id: input.id,
+              url: input.url,
+              rightans: input.rightans,
+              wrong1: input.wrong1,
+              wrong2: input.wrong2,
+              wrong3: input.wrong3,
+              chosen: '',
+              approved: approved,
+              userId: existingUser.id,
+            },
+          })
+        } else {
+          throw new TRPCError({
+            code: 'UNAUTHORIZED',
+            message:
+              'User not on database. Try after signing out and signing in.',
+          })
+        }
+      } else {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'User not present on session. Contact Admin.',
+        })
+      }
       return { success: true }
     }),
   moviesForNewgame: privateProcedure.query(async () => {
     const movies = await db.$queryRaw`
-    SELECT id, rightans, wrong1, wrong2, wrong3, chosen, RAND() as randomNumber
+    SELECT id, url, rightans, wrong1, wrong2, wrong3, chosen, RAND() as randomNumber
     FROM Movie
     WHERE approved = true
     ORDER BY randomNumber

@@ -27,6 +27,7 @@ const Page = () => {
   const { refetch } = trpc.moviesForNewgame.useQuery(undefined, {
     enabled: false,
     onSuccess: (movies: Movie[]) => {
+      console.log(movies)
       setMovieQuestions((prevArray) => [...prevArray, ...movies])
     },
   })
@@ -42,7 +43,11 @@ const Page = () => {
     <div>
       <div className='absolute -z-20 dark:bg-dark-100 w-full h-full'></div>
       <Image
-        src={movieQuestions[movieIndex].url}
+        src={
+          movieQuestions[movieIndex]
+            ? movieQuestions[movieIndex].url
+            : '/collage.jpg'
+        }
         alt='collage'
         fill
         style={{ objectFit: 'cover' }}
@@ -51,7 +56,7 @@ const Page = () => {
       {movieQuestions[movieIndex] && (
         <div className='flex flex-center flex-col px-10 h-screen w-full space-y-3'>
           <h1 className='text-white'>Choose the right option</h1>
-          <div className='w-full h-full max-w-[555px] max-h-[300px] rounded-xl shadow-xl overflow-hidden backdrop-blur'>
+          <div className='w-full h-full max-w-[555px] max-h-[300px] rounded-xl shadow-xl overflow-hidden backdrop-blur relative'>
             <Image
               src={movieQuestions[movieIndex].url}
               alt='collage'

@@ -9,11 +9,15 @@ const isAuth = middleware(async (opts) => {
   const session = await getServerSession(options)
   const admin = false
   if (!session) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' })
+    throw new TRPCError({
+      code: 'UNAUTHORIZED',
+      message: 'User not logged in. Try after signing in.',
+    })
   } else {
     return opts.next({
       ctx: {
         role: (session.user as CustomUser)?.role,
+        email: (session.user as CustomUser)?.email,
       },
     })
   }
