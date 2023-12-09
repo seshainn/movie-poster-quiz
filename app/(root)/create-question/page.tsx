@@ -121,7 +121,7 @@ const Page = () => {
         style={{ objectFit: 'cover' }}
         className='opacity-30 -z-10'
       />
-      <div className='flex flex-col flex-center p-24 space-y-6'>
+      <div className='flex flex-col flex-center py-24 space-y-6'>
         <h1 className='text-xl font-bold backdrop-blur-xs text-color'>
           Enter movie details
         </h1>

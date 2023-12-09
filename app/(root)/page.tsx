@@ -27,15 +27,13 @@ const Home = () => {
       />
       {status != 'loading' &&
         (!session ? (
-          <div
-            className={`${headingFont.className} flex flex-center flex-col mt-60`}
-          >
-            <div className='bg-lightOrange dark:bg-lightTeal px-4 py-2 rounded-full flex-center space-x-2 shadow-sm backdrop-blur'>
+          <div className={`${headingFont.className} flex flex-col space-y-20`}>
+            <div className='bg-lightOrange dark:bg-lightTeal px-4 py-2 rounded-full flex-center space-x-2 shadow-sm backdrop-blur tracking-widest'>
               <Medal className='w-6 h-6' />
               <p className='uppercase text-md'>Movie Poster Quiz</p>
             </div>
 
-            <div className='px-4 py-2 bg-gradient-to-r from-lightOrange to-darkOrange dark:from-lightTeal dark:to-darkTeal text-2xl rounded-md mt-10 hover:text-darkTeal flex-center space-x-1'>
+            <div className='px-4 py-2 bg-gradient-to-r from-lightOrange to-darkOrange dark:from-lightTeal dark:to-darkTeal text-2xl rounded-md hover:text-darkTeal flex-center space-x-1'>
               <Link href='/login'>Login to play</Link>
               <ArrowRight />
             </div>
