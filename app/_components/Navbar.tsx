@@ -97,6 +97,7 @@ const Navbar = () => {
               <div className='md:hidden'>
                 <button
                   type='button'
+                  id='hamburger'
                   className='w-[24px] h-[24px] relative z-40' //z-40 means visibility on top of div
                   onClick={(e) => {
                     e.currentTarget.classList.toggle('open-ham') //open-ham is a new class added
@@ -109,16 +110,56 @@ const Navbar = () => {
                 </button>
                 {toggleHam && (
                   <div className='fixed left-0 top-0 bottom-0 flex flex-col w-full min-h-screen overflow-hidden self-end py-40 pl-12 space-y-5 text-lg text-black dark:text-white uppercase bg-white dark:bg-black'>
-                    <Link href='/about' className='text-hover'>
+                    <Link
+                      href='/about'
+                      className='text-hover'
+                      onClick={() => {
+                        const hambutton = document.querySelector('#hamburger')
+                        if (hambutton) {
+                          hambutton.classList.toggle('open-ham')
+                          setToggleHam(!toggleHam)
+                        }
+                      }}
+                    >
                       About
                     </Link>
-                    <Link href='/profile' className='text-hover'>
+                    <Link
+                      href='/profile'
+                      className='text-hover'
+                      onClick={() => {
+                        const hambutton = document.querySelector('#hamburger')
+                        if (hambutton) {
+                          hambutton.classList.toggle('open-ham')
+                          setToggleHam(!toggleHam)
+                        }
+                      }}
+                    >
                       Profile
                     </Link>
-                    <Link href='/donate' className='text-hover'>
+                    <Link
+                      href='/donate'
+                      className='text-hover'
+                      onClick={() => {
+                        const hambutton = document.querySelector('#hamburger')
+                        if (hambutton) {
+                          hambutton.classList.toggle('open-ham')
+                          setToggleHam(!toggleHam)
+                        }
+                      }}
+                    >
                       Donate
                     </Link>
-                    <Link href='/create-question' className='text-hover'>
+                    <Link
+                      href='/create-question'
+                      className='text-hover'
+                      onClick={() => {
+                        const hambutton = document.querySelector('#hamburger')
+                        if (hambutton) {
+                          hambutton.classList.toggle('open-ham')
+                          setToggleHam(!toggleHam)
+                        }
+                      }}
+                    >
                       Create Question
                     </Link>
                   </div>

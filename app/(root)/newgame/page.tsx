@@ -99,8 +99,8 @@ const Page = () => {
         className='opacity-30 -z-10'
       />
       {movieQuestions[movieIndex] ? (
-        <div className='flex max-md:flex-col flex-center px-12 space-y-6'>
-          <div className='w-full md:w-3/5 h-full flex-center max-w-[740px] max-h-[400px] rounded-xl shadow-xl overflow-hidden backdrop-blur relative'>
+        <div className='flex max-md:flex-col flex-center px-12 space-y-6 mt-14'>
+          <div className='w-full md:w-3/5 h-full flex-center rounded-xl shadow-xl overflow-hidden backdrop-blur relative'>
             <Image
               src={movieQuestions[movieIndex].url}
               alt='collage'
@@ -117,7 +117,7 @@ const Page = () => {
                 value={answers[0]}
                 checked={selection === answers[0]}
                 onChange={handleSelection}
-                className='w-4 h-4 form-radio checked:bg-teal-500'
+                className='w-4 h-4 hover:scale-150 transition-transform duration-200'
               />
               <span className='text-black dark:text-teal-500'>
                 {answers[0]}
@@ -129,7 +129,7 @@ const Page = () => {
                 value={answers[1]}
                 checked={selection === answers[1]}
                 onChange={handleSelection}
-                className='w-4 h-4 form-radio checked:bg-teal-500'
+                className='w-4 h-4 form-radio hover:scale-150 transition-transform duration-200'
               />
               <span className='text-black dark:text-teal-500'>
                 {answers[1]}
@@ -141,7 +141,7 @@ const Page = () => {
                 value={answers[2]}
                 checked={selection === answers[2]}
                 onChange={handleSelection}
-                className='w-4 h-4 form-radio checked:bg-teal-500'
+                className='w-4 h-4 form-radio hover:scale-150 transition-transform duration-200'
               />
               <span className='text-black dark:text-teal-500'>
                 {answers[2]}
@@ -153,7 +153,7 @@ const Page = () => {
                 value={answers[3]}
                 checked={selection === answers[3]}
                 onChange={handleSelection}
-                className='w-4 h-4 form-radio checked:bg-teal-500'
+                className='w-4 h-4 form-radio hover:scale-150 transition-transform duration-200'
               />
               <span className='text-black dark:text-teal-500'>
                 {answers[3]}
