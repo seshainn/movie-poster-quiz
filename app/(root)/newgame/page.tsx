@@ -24,18 +24,22 @@ const Page = () => {
   const [quizScore, setQuizScore] = useState(0)
 
   const handleNext = () => {
+    handleSelection()
     if (movieIndex < movieQuestions.length) {
       setMovieIndex((prev) => prev + 1)
     }
   }
 
-  const { refetch, isLoading } = trpc.moviesForNewgame.useQuery(undefined, {
-    enabled: false,
-    onSuccess: (movies: Movie[]) => {
-      setMovieQuestions((prevArray) => [...prevArray, ...movies])
-      setMovieQuestionsUpdt((prevArray) => [...prevArray, ...movies])
-    },
-  })
+  const { refetch, isLoading, isFetching } = trpc.moviesForNewgame.useQuery(
+    undefined,
+    {
+      enabled: false,
+      onSuccess: (movies: Movie[]) => {
+        setMovieQuestions((prevArray) => [...prevArray, ...movies])
+        setMovieQuestionsUpdt((prevArray) => [...prevArray, ...movies])
+      },
+    }
+  )
   useEffect(() => {
     const fetchData = async () => {
       await refetch()
@@ -62,23 +66,26 @@ const Page = () => {
     }
   }, [movieQuestions, movieIndex])
 
-  const handleSelection = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelection(e.target.value)
+  const handleSelection = () => {
     const updatedMovies = [...movieQuestionsUpdt]
     updatedMovies[movieIndex] = {
       ...updatedMovies[movieIndex],
-      chosen: e.target.value,
+      chosen: selection,
     }
     setMovieQuestionsUpdt(updatedMovies)
   }
 
   const handleSubmit = () => {
-    console.log(movieQuestionsUpdt)
-    setQuizScore(
-      movieQuestionsUpdt.filter((movie) => {
-        return movie.chosen === movie.rightans
-      }).length
-    )
+    handleNext()
+    let score = movieQuestionsUpdt.filter((movie) => {
+      return movie.chosen === movie.rightans
+    }).length
+    if (
+      movieQuestionsUpdt[movieQuestionsUpdt.length - 1].rightans === selection
+    ) {
+      score += 1
+    }
+    setQuizScore(score)
     setMovieQuestions([])
     setMovieQuestionsUpdt([])
     setMovieIndex(0)
@@ -96,7 +103,7 @@ const Page = () => {
         alt='collage'
         fill
         style={{ objectFit: 'cover' }}
-        className='opacity-30 -z-10'
+        className='opacity-40 dark:opacity-30 -z-10'
       />
       {movieQuestions[movieIndex] ? (
         <div className='flex max-md:flex-col flex-center px-12 space-y-6 mt-14'>
@@ -107,54 +114,78 @@ const Page = () => {
               width={0}
               height={0}
               sizes='100vw'
-              style={{ width: '100%', height: 'auto' }}
+              style={{ width: '100%', height: '100%' }}
             />
           </div>
-          <div className='w-full md:w-2/5 p-4 flex flex-center flex-col space-y-4'>
-            <div className='space-x-2 text-lg'>
-              <input
-                type='radio'
-                value={answers[0]}
-                checked={selection === answers[0]}
-                onChange={handleSelection}
-                className='w-4 h-4 hover:scale-150 transition-transform duration-200'
-              />
+          <div className='w-full md:w-2/5 p-4 flex justify-start flex-col space-y-4 pl-10'>
+            <div className='flex flex-start items-center space-x-2'>
+              <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
+                <input
+                  readOnly
+                  className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
+                    selection === answers[0]
+                      ? 'bg-orange-500 dark:bg-teal-500'
+                      : ''
+                  }`}
+                  onClick={() => {
+                    setSelection(answers[0])
+                  }}
+                />
+              </div>
               <span className='text-black dark:text-teal-500'>
                 {answers[0]}
               </span>
             </div>
-            <div className='space-x-2 text-lg'>
-              <input
-                type='radio'
-                value={answers[1]}
-                checked={selection === answers[1]}
-                onChange={handleSelection}
-                className='w-4 h-4 form-radio hover:scale-150 transition-transform duration-200'
-              />
+            <div className='flex flex-start items-center space-x-2'>
+              <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
+                <input
+                  readOnly
+                  className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
+                    selection === answers[1]
+                      ? 'bg-orange-500 dark:bg-teal-500'
+                      : ''
+                  }`}
+                  onClick={() => {
+                    setSelection(answers[1])
+                  }}
+                />
+              </div>
               <span className='text-black dark:text-teal-500'>
                 {answers[1]}
               </span>
             </div>
-            <div className='space-x-2 text-lg'>
-              <input
-                type='radio'
-                value={answers[2]}
-                checked={selection === answers[2]}
-                onChange={handleSelection}
-                className='w-4 h-4 form-radio hover:scale-150 transition-transform duration-200'
-              />
+            <div className='flex flex-start items-center space-x-2'>
+              <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
+                <input
+                  readOnly
+                  className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
+                    selection === answers[2]
+                      ? 'bg-orange-500 dark:bg-teal-500'
+                      : ''
+                  }`}
+                  onClick={() => {
+                    setSelection(answers[2])
+                  }}
+                />
+              </div>
               <span className='text-black dark:text-teal-500'>
                 {answers[2]}
               </span>
             </div>
-            <div className='space-x-2 text-lg'>
-              <input
-                type='radio'
-                value={answers[3]}
-                checked={selection === answers[3]}
-                onChange={handleSelection}
-                className='w-4 h-4 form-radio hover:scale-150 transition-transform duration-200'
-              />
+            <div className='flex flex-start items-center space-x-2'>
+              <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
+                <input
+                  readOnly
+                  className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
+                    selection === answers[3]
+                      ? 'bg-orange-500 dark:bg-teal-500'
+                      : ''
+                  }`}
+                  onClick={() => {
+                    setSelection(answers[3])
+                  }}
+                />
+              </div>
               <span className='text-black dark:text-teal-500'>
                 {answers[3]}
               </span>
@@ -163,7 +194,7 @@ const Page = () => {
             {movieIndex === 9 ? (
               <button
                 type='submit'
-                className='btn bg-color text-hover px-6 py-2 rounded-md tracking-widest text-black font-semibold hover:text-darkTeal dark:hover:text-darkTeal'
+                className='btn bg-color text-hover px-6 py-2 rounded-md tracking-widest text-black text-xl font-semibold hover:text-darkTeal dark:hover:text-darkTeal'
                 onClick={handleSubmit}
               >
                 Submit
@@ -171,7 +202,7 @@ const Page = () => {
             ) : (
               <button
                 type='submit'
-                className='btn bg-color text-hover px-6 py-2 rounded-md tracking-widest text-black font-semibold hover:text-darkTeal dark:hover:text-darkTeal'
+                className='btn bg-color text-hover px-6 py-2 rounded-md tracking-widest text-black text-xl font-semibold hover:text-darkTeal dark:hover:text-darkTeal'
                 onClick={handleNext}
               >
                 next
@@ -180,7 +211,8 @@ const Page = () => {
           </div>
         </div>
       ) : (
-        !isLoading && (
+        !isLoading &&
+        !isFetching && (
           <div className='flex flex-col flex-center px-12 space-y-10'>
             <h1 className='text-black dark:text-white font-bold text-2xl'>
               Your score is {quizScore}/10
