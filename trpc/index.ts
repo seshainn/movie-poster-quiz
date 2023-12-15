@@ -53,6 +53,57 @@ export const appRouter = router({
 
       return { ...existingUser, success: true }
     }),
+  getUserProfile: privateProcedure.query(async ({ ctx }) => {
+    if (ctx?.email) {
+      const existingUser = await db.user.findUnique({
+        where: {
+          email: ctx.email,
+        },
+      })
+      if (existingUser) {
+        return { ...existingUser, success: true }
+      } else {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'User could not be found. Contact Admin.',
+        })
+      }
+    }
+  }),
+  updateUser: privateProcedure
+    .input(z.object({ score: z.number() }))
+    .mutation(async ({ input, ctx }) => {
+      if (ctx?.email) {
+        const existingUser = await db.user.findUnique({
+          where: {
+            email: ctx.email,
+          },
+        })
+        if (!existingUser) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'User not found for update. Contact Admin',
+          })
+        }
+        await db.user.update({
+          where: {
+            email: ctx.email,
+          },
+          data: {
+            numberOfGames: {
+              increment: 1,
+            },
+            highestScore: {
+              increment:
+                input.score > existingUser.highestScore
+                  ? input.score - existingUser.highestScore
+                  : 0,
+            },
+          },
+        })
+      }
+      return { success: true }
+    }),
   uploadImage: privateProcedure
     .input(
       z.object({

@@ -40,6 +40,9 @@ const Page = () => {
       },
     }
   )
+
+  const { mutate } = trpc.updateUser.useMutation()
+
   useEffect(() => {
     const fetchData = async () => {
       await refetch()
@@ -89,6 +92,9 @@ const Page = () => {
     setMovieQuestions([])
     setMovieQuestionsUpdt([])
     setMovieIndex(0)
+    mutate({
+      score,
+    })
   }
 
   return (
@@ -115,6 +121,7 @@ const Page = () => {
               height={0}
               sizes='100vw'
               style={{ width: '100%', height: '100%' }}
+              className='rounded-xl shadow-xl backdrop-blur'
             />
           </div>
           <div className='w-full md:w-2/5 p-4 flex justify-start flex-col space-y-4 pl-10'>
