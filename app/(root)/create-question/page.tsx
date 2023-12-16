@@ -132,7 +132,7 @@ const Page = () => {
               autoComplete='off'
               placeholder='Enter movie name'
               {...register('rightans')}
-              className='w-full max-w-md bg-orange-400 bg-opacity-60 dark:bg-teal-100 p-2 rounded-lg text-center placeholder:text-lg placeholder:text-gray-500 text-black font-semibold text-lg'
+              className='w-full max-w-md bg-orange-300 dark:bg-teal-100 p-2 rounded-lg text-center placeholder:text-lg placeholder:text-gray-500 text-black font-semibold text-lg'
             />
             <p className='text-red-500 text-sm'>{errors.rightans?.message}</p>
             <input
@@ -140,7 +140,7 @@ const Page = () => {
               autoComplete='off'
               placeholder='Enter wrong answer 1'
               {...register('wrong1')}
-              className='w-full max-w-md bg-orange-400 bg-opacity-60 dark:bg-teal-100 p-2 rounded-lg text-center placeholder:text-lg placeholder:text-gray-500 text-black text-lg'
+              className='w-full max-w-md bg-orange-300 dark:bg-teal-100 p-2 rounded-lg text-center placeholder:text-lg placeholder:text-gray-500 text-black text-lg'
             />
             <p className='text-red-500 text-sm'>{errors.wrong1?.message}</p>
             <input
@@ -148,7 +148,7 @@ const Page = () => {
               autoComplete='off'
               placeholder='Enter wrong answer 2'
               {...register('wrong2')}
-              className='w-full max-w-md bg-orange-400 bg-opacity-60 dark:bg-teal-100 p-2 rounded-lg text-center placeholder:text-lg placeholder:text-gray-500 text-black text-lg'
+              className='w-full max-w-md bg-orange-300 dark:bg-teal-100 p-2 rounded-lg text-center placeholder:text-lg placeholder:text-gray-500 text-black text-lg'
             />
             <p className='text-red-500 text-sm'>{errors.wrong2?.message}</p>
             <input
@@ -156,10 +156,10 @@ const Page = () => {
               autoComplete='off'
               placeholder='Enter wrong answer 3'
               {...register('wrong3')}
-              className='w-full max-w-md bg-orange-400 bg-opacity-60 dark:bg-teal-100 p-2 rounded-lg text-center placeholder:text-lg placeholder:text-gray-500 text-black text-lg'
+              className='w-full max-w-md bg-orange-300 dark:bg-teal-100 p-2 rounded-lg text-center placeholder:text-lg placeholder:text-gray-500 text-black text-lg'
             />
             <p className='text-red-500 text-sm'>{errors.wrong3?.message}</p>
-            <div className='w-full max-w-md bg-orange-400 bg-opacity-60 dark:bg-teal-100 text-center text-md p-2 text-gray-500'>
+            <div className='w-full max-w-md bg-orange-300 dark:bg-teal-100 text-center text-md p-2 text-gray-500'>
               <div
                 {...getRootProps()}
                 className='p-6 border border-dashed border-black w-full cursor-pointer'

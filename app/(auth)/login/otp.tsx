@@ -28,7 +28,7 @@ const Otpform = () => {
           if (diff <= 900000) {
             signIn('credentials', {
               email: data.email,
-              callbackUrl: '/dashboard',
+              callbackUrl: '/',
               redirect: true,
             })
           } else {

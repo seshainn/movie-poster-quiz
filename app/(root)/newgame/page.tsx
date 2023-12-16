@@ -2,6 +2,7 @@
 import { trpc } from '@/app/_trpc/client'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import Results from '@/app/_components/Results'
 
 type Movie = {
   id: string
@@ -35,8 +36,10 @@ const Page = () => {
     {
       enabled: false,
       onSuccess: (movies: Movie[]) => {
-        setMovieQuestions((prevArray) => [...prevArray, ...movies])
-        setMovieQuestionsUpdt((prevArray) => [...prevArray, ...movies])
+        //setMovieQuestions((prevArray) => [...prevArray, ...movies])
+        //setMovieQuestionsUpdt((prevArray) => [...prevArray, ...movies])
+        setMovieQuestions(movies)
+        setMovieQuestionsUpdt(movies)
       },
     }
   )
@@ -51,6 +54,10 @@ const Page = () => {
     fetchData()
   }, [refetch, playAgain])
 
+  const handlePlayAgain = () => {
+    setPlayAgain(!playAgain)
+    setMovieIndex(0)
+  }
   useEffect(() => {
     if (movieQuestions[movieIndex]) {
       var choices = [
@@ -89,9 +96,9 @@ const Page = () => {
       score += 1
     }
     setQuizScore(score)
-    setMovieQuestions([])
-    setMovieQuestionsUpdt([])
-    setMovieIndex(0)
+    //setMovieQuestions([])
+    //setMovieQuestionsUpdt([])
+    //setMovieIndex(0)
     mutate({
       score,
     })
@@ -102,7 +109,7 @@ const Page = () => {
       <div className='absolute -z-20 dark:bg-dark-100 w-full h-full'></div>
       <Image
         src={
-          movieQuestions[movieIndex]
+          !isLoading && !isFetching && movieQuestions[movieIndex]
             ? movieQuestions[movieIndex].url
             : '/collage.jpg'
         }
@@ -111,131 +118,131 @@ const Page = () => {
         style={{ objectFit: 'cover' }}
         className='opacity-40 dark:opacity-30 -z-10'
       />
-      {movieQuestions[movieIndex] ? (
-        <div className='flex max-md:flex-col flex-center px-12 space-y-6 mt-14'>
-          <div className='w-full md:w-3/5 h-full flex-center rounded-xl shadow-xl overflow-hidden backdrop-blur relative'>
-            <Image
-              src={movieQuestions[movieIndex].url}
-              alt='collage'
-              width={0}
-              height={0}
-              sizes='100vw'
-              style={{ width: '100%', height: '100%' }}
-              className='rounded-xl shadow-xl backdrop-blur'
+
+      {movieQuestions[movieIndex]
+        ? !isLoading &&
+          !isFetching && (
+            <div className='flex max-md:flex-col flex-center px-12 space-y-6 mt-14'>
+              <div className='w-full md:w-3/5 h-full flex-center rounded-xl shadow-xl overflow-hidden backdrop-blur relative'>
+                <Image
+                  src={movieQuestions[movieIndex].url}
+                  alt='collage'
+                  width={0}
+                  height={0}
+                  sizes='100vw'
+                  style={{ width: '100%', height: '100%' }}
+                  className='rounded-xl shadow-xl backdrop-blur'
+                />
+                <div className='absolute top-4 right-4'>
+                  <div className='bg-orange-500 dark:bg-teal-500 text-white rounded-full w-12 h-12 flex items-center justify-center relative'>
+                    <span className='text-black p-2'>{movieIndex + 1}/10</span>
+                    <div className='absolute inset-0 rounded-full border-4 border-transparent'></div>
+                    <div className='absolute inset-0 rounded-full border-4 border-orange-400 dark:border-teal-400 transform -rotate-45 z-10'></div>
+                  </div>
+                </div>
+              </div>
+              <div className='w-full md:w-2/5 p-4 flex justify-start flex-col space-y-4 pl-10'>
+                <div className='flex flex-start items-center space-x-2'>
+                  <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
+                    <input
+                      readOnly
+                      className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
+                        selection === answers[0]
+                          ? 'bg-orange-500 dark:bg-teal-500'
+                          : ''
+                      }`}
+                      onClick={() => {
+                        setSelection(answers[0])
+                      }}
+                    />
+                  </div>
+                  <span className='text-black dark:text-teal-500'>
+                    {answers[0]}
+                  </span>
+                </div>
+                <div className='flex flex-start items-center space-x-2'>
+                  <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
+                    <input
+                      readOnly
+                      className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
+                        selection === answers[1]
+                          ? 'bg-orange-500 dark:bg-teal-500'
+                          : ''
+                      }`}
+                      onClick={() => {
+                        setSelection(answers[1])
+                      }}
+                    />
+                  </div>
+                  <span className='text-black dark:text-teal-500'>
+                    {answers[1]}
+                  </span>
+                </div>
+                <div className='flex flex-start items-center space-x-2'>
+                  <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
+                    <input
+                      readOnly
+                      className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
+                        selection === answers[2]
+                          ? 'bg-orange-500 dark:bg-teal-500'
+                          : ''
+                      }`}
+                      onClick={() => {
+                        setSelection(answers[2])
+                      }}
+                    />
+                  </div>
+                  <span className='text-black dark:text-teal-500'>
+                    {answers[2]}
+                  </span>
+                </div>
+                <div className='flex flex-start items-center space-x-2'>
+                  <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
+                    <input
+                      readOnly
+                      className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
+                        selection === answers[3]
+                          ? 'bg-orange-500 dark:bg-teal-500'
+                          : ''
+                      }`}
+                      onClick={() => {
+                        setSelection(answers[3])
+                      }}
+                    />
+                  </div>
+                  <span className='text-black dark:text-teal-500'>
+                    {answers[3]}
+                  </span>
+                </div>
+                <br />
+                {movieIndex === 9 ? (
+                  <button
+                    type='submit'
+                    className='btn bg-color text-hover px-6 py-2 rounded-md tracking-widest text-black text-xl font-semibold hover:text-darkTeal dark:hover:text-darkTeal'
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </button>
+                ) : (
+                  <button
+                    type='submit'
+                    className='btn bg-color text-hover px-6 py-2 rounded-md tracking-widest text-black text-xl font-semibold hover:text-darkTeal dark:hover:text-darkTeal'
+                    onClick={handleNext}
+                  >
+                    next
+                  </button>
+                )}
+              </div>
+            </div>
+          )
+        : !isLoading &&
+          !isFetching && (
+            <Results
+              score={quizScore}
+              play={handlePlayAgain}
+              movies={movieQuestionsUpdt}
             />
-          </div>
-          <div className='w-full md:w-2/5 p-4 flex justify-start flex-col space-y-4 pl-10'>
-            <div className='flex flex-start items-center space-x-2'>
-              <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
-                <input
-                  readOnly
-                  className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
-                    selection === answers[0]
-                      ? 'bg-orange-500 dark:bg-teal-500'
-                      : ''
-                  }`}
-                  onClick={() => {
-                    setSelection(answers[0])
-                  }}
-                />
-              </div>
-              <span className='text-black dark:text-teal-500'>
-                {answers[0]}
-              </span>
-            </div>
-            <div className='flex flex-start items-center space-x-2'>
-              <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
-                <input
-                  readOnly
-                  className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
-                    selection === answers[1]
-                      ? 'bg-orange-500 dark:bg-teal-500'
-                      : ''
-                  }`}
-                  onClick={() => {
-                    setSelection(answers[1])
-                  }}
-                />
-              </div>
-              <span className='text-black dark:text-teal-500'>
-                {answers[1]}
-              </span>
-            </div>
-            <div className='flex flex-start items-center space-x-2'>
-              <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
-                <input
-                  readOnly
-                  className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
-                    selection === answers[2]
-                      ? 'bg-orange-500 dark:bg-teal-500'
-                      : ''
-                  }`}
-                  onClick={() => {
-                    setSelection(answers[2])
-                  }}
-                />
-              </div>
-              <span className='text-black dark:text-teal-500'>
-                {answers[2]}
-              </span>
-            </div>
-            <div className='flex flex-start items-center space-x-2'>
-              <div className='flex flex-center hover:scale-150 transition-transform duration-200  cursor-pointer rounded-full bg-white border border-gray-400'>
-                <input
-                  readOnly
-                  className={`w-3 h-3 m-1 rounded-full focus:outline-none cursor-pointer ${
-                    selection === answers[3]
-                      ? 'bg-orange-500 dark:bg-teal-500'
-                      : ''
-                  }`}
-                  onClick={() => {
-                    setSelection(answers[3])
-                  }}
-                />
-              </div>
-              <span className='text-black dark:text-teal-500'>
-                {answers[3]}
-              </span>
-            </div>
-            <br />
-            {movieIndex === 9 ? (
-              <button
-                type='submit'
-                className='btn bg-color text-hover px-6 py-2 rounded-md tracking-widest text-black text-xl font-semibold hover:text-darkTeal dark:hover:text-darkTeal'
-                onClick={handleSubmit}
-              >
-                Submit
-              </button>
-            ) : (
-              <button
-                type='submit'
-                className='btn bg-color text-hover px-6 py-2 rounded-md tracking-widest text-black text-xl font-semibold hover:text-darkTeal dark:hover:text-darkTeal'
-                onClick={handleNext}
-              >
-                next
-              </button>
-            )}
-          </div>
-        </div>
-      ) : (
-        !isLoading &&
-        !isFetching && (
-          <div className='flex flex-col flex-center px-12 space-y-10'>
-            <h1 className='text-black dark:text-white font-bold text-2xl'>
-              Your score is {quizScore}/10
-            </h1>
-            <button
-              type='submit'
-              className='btn bg-color text-hover px-6 py-2 rounded-md tracking-widest text-black text-lg font-semibold hover:text-darkTeal dark:hover:text-darkTeal'
-              onClick={() => {
-                setPlayAgain(!playAgain)
-              }}
-            >
-              Play again
-            </button>
-          </div>
-        )
-      )}
+          )}
     </>
   )
 }

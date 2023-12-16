@@ -16,12 +16,15 @@ const initialUserState: User = {
 const Page = () => {
   const [userData, setUserData] = useState<User>(initialUserState)
 
-  const { refetch } = trpc.getUserProfile.useQuery(undefined, {
-    enabled: false,
-    onSuccess: (user: User) => {
-      setUserData(user)
-    },
-  })
+  const { refetch, isLoading, isFetching } = trpc.getUserProfile.useQuery(
+    undefined,
+    {
+      enabled: false,
+      onSuccess: (user: User) => {
+        setUserData(user)
+      },
+    }
+  )
   useEffect(() => {
     const fetchData = async () => {
       await refetch()
@@ -38,15 +41,17 @@ const Page = () => {
         alt='profile'
         fill
         style={{ objectFit: 'cover' }}
-        className='opacity-20 -z-10 mt-14'
+        className='opacity-20 dark:opacity-30 -z-10'
       />
-      <div className='flex flex-col flex-center text-darkOrange dark:text-lightTeal'>
-        <h1 className='text-xl font-bold'>{userData.email}</h1>
-        <p className='text-lg mt-10'>
-          Number of games played: {userData.numberOfGames}
-        </p>
-        <p className='text-lg'>Highest Score: {userData.highestScore}</p>
-      </div>
+      {!isLoading && !isFetching && (
+        <div className='flex flex-col text-darkOrange dark:text-lightTeal'>
+          <h1 className='text-xl font-bold'>{userData.email}</h1>
+          <p className='text-lg mt-10'>
+            Number of games played: {userData.numberOfGames}
+          </p>
+          <p className='text-lg mt-2'>Highest Score: {userData.highestScore}</p>
+        </div>
+      )}
     </>
   )
 }

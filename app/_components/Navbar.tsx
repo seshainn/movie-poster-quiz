@@ -37,6 +37,9 @@ const Navbar = () => {
                 </p>
               </div>
             </Link>
+            <h1 className='dark:text-lightTeal text-darkOrange italic font-semibold text-lg max-md:hidden'>
+              welcome {session?.user?.email?.split('@')[0]}
+            </h1>
             <div className='space-x-6 flex-between'>
               {mode === 'light' ? (
                 <div
@@ -64,16 +67,13 @@ const Navbar = () => {
                 </div>
               )}
               <div className='text-md font-semibold mr-15 dark:text-light-700 text-hover max-md:hidden'>
-                <Link href='/about'>About</Link>
-              </div>
-              <div className='text-md font-semibold mr-15 dark:text-light-700 text-hover max-md:hidden'>
                 <Link href='/profile'>Profile</Link>
               </div>
               <div className='text-md font-semibold mr-15 dark:text-light-700 text-hover max-md:hidden'>
-                <Link href='/about'>Donate</Link>
+                <Link href='/create-question'>Create-Question</Link>
               </div>
               <div className='text-md font-semibold mr-15 dark:text-light-700 text-hover max-md:hidden'>
-                <Link href='/create-question'>Create-Question</Link>
+                <Link href='/newgame'>New game</Link>
               </div>
               {!session ? (
                 <div className='btn bg-color text-hover px-4 rounded-md text-black font-semibold hover:text-darkTeal dark:hover:text-darkTeal'>
@@ -93,7 +93,6 @@ const Navbar = () => {
                   </button>
                 </div>
               )}
-
               <div className='md:hidden'>
                 <button
                   type='button'
@@ -109,23 +108,14 @@ const Navbar = () => {
                   <span className='hamburger-bottom translate-y-[14px]'></span>
                 </button>
                 {toggleHam && (
-                  <div className='fixed left-0 top-0 bottom-0 flex flex-col w-full min-h-screen overflow-hidden self-end py-40 pl-12 space-y-5 text-lg text-black dark:text-white uppercase bg-white dark:bg-black'>
-                    <Link
-                      href='/about'
-                      className='text-hover'
-                      onClick={() => {
-                        const hambutton = document.querySelector('#hamburger')
-                        if (hambutton) {
-                          hambutton.classList.toggle('open-ham')
-                          setToggleHam(!toggleHam)
-                        }
-                      }}
-                    >
-                      About
-                    </Link>
+                  <div className='fixed left-0 top-0 bottom-0 flex flex-col w-full min-h-screen overflow-hidden self-end py-40 pl-12 text-lg dark:text-lightTeal text-darkOrange  uppercase bg-white dark:bg-black'>
+                    <h1 className='absolute dark:text-lightTeal text-darkOrange italic font-semibold text-md lowercase top-[25%]'>
+                      welcome {session?.user?.email?.split('@')[0]}
+                    </h1>
+
                     <Link
                       href='/profile'
-                      className='text-hover'
+                      className='absolute border-b-2 border-hover top-[35%]'
                       onClick={() => {
                         const hambutton = document.querySelector('#hamburger')
                         if (hambutton) {
@@ -136,22 +126,10 @@ const Navbar = () => {
                     >
                       Profile
                     </Link>
-                    <Link
-                      href='/donate'
-                      className='text-hover'
-                      onClick={() => {
-                        const hambutton = document.querySelector('#hamburger')
-                        if (hambutton) {
-                          hambutton.classList.toggle('open-ham')
-                          setToggleHam(!toggleHam)
-                        }
-                      }}
-                    >
-                      Donate
-                    </Link>
+
                     <Link
                       href='/create-question'
-                      className='text-hover'
+                      className='absolute border-b-2 border-hover top-[45%]'
                       onClick={() => {
                         const hambutton = document.querySelector('#hamburger')
                         if (hambutton) {
@@ -161,6 +139,19 @@ const Navbar = () => {
                       }}
                     >
                       Create Question
+                    </Link>
+                    <Link
+                      href='/newgame'
+                      className='absolute border-b-2 border-hover top-[55%]'
+                      onClick={() => {
+                        const hambutton = document.querySelector('#hamburger')
+                        if (hambutton) {
+                          hambutton.classList.toggle('open-ham')
+                          setToggleHam(!toggleHam)
+                        }
+                      }}
+                    >
+                      New game
                     </Link>
                   </div>
                 )}

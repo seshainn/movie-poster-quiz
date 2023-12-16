@@ -26,7 +26,7 @@ const Login = () => {
           className='rounded-xl inline-flex justify-center bg-color px-2 py-2 text-lg w-full mt-10'
           onClick={async () => {
             await signIn('github', {
-              callbackUrl: '/dashboard',
+              callbackUrl: '/',
               redirect: true,
             })
           }}
@@ -55,7 +55,7 @@ const Login = () => {
           className='rounded-xl inline-flex justify-center bg-color px-2 py-2 text-lg w-full mt-10'
           onClick={async () => {
             await signIn('google', {
-              callbackUrl: '/dashboard',
+              callbackUrl: '/',
               redirect: true,
             })
           }}

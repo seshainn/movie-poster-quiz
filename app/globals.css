@@ -45,10 +45,12 @@ body {
     @apply flex justify-end items-center;
   }
 
-  .text-hover {
-    @apply hover:text-darkOrange dark:hover:text-lightTeal;
+  .border-hover {
+    @apply hover:border-darkOrange border-white dark:border-black hover:dark:border-lightTeal transform duration-500;
   }
-
+  .text-hover {
+    @apply hover:text-darkOrange  hover:dark:text-lightTeal transform duration-500;
+  }
   .btn-hover {
     @apply hover:bg-orange-700 dark:hover:bg-darkTeal;
   }
