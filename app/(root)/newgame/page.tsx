@@ -7,6 +7,7 @@ import Results from '@/app/_components/Results'
 type Movie = {
   id: string
   url: string
+  blururl: string
   randomNumber: number
   rightans: string
   wrong1: string
@@ -36,8 +37,6 @@ const Page = () => {
     {
       enabled: false,
       onSuccess: (movies: Movie[]) => {
-        //setMovieQuestions((prevArray) => [...prevArray, ...movies])
-        //setMovieQuestionsUpdt((prevArray) => [...prevArray, ...movies])
         setMovieQuestions(movies)
         setMovieQuestionsUpdt(movies)
       },
@@ -83,6 +82,7 @@ const Page = () => {
       chosen: selection,
     }
     setMovieQuestionsUpdt(updatedMovies)
+    setSelection('')
   }
 
   const handleSubmit = () => {
@@ -96,9 +96,6 @@ const Page = () => {
       score += 1
     }
     setQuizScore(score)
-    //setMovieQuestions([])
-    //setMovieQuestionsUpdt([])
-    //setMovieIndex(0)
     mutate({
       score,
     })
@@ -129,11 +126,13 @@ const Page = () => {
                   alt='collage'
                   width={0}
                   height={0}
+                  placeholder='blur'
+                  blurDataURL={movieQuestions[movieIndex].blururl}
                   sizes='100vw'
                   style={{ width: '100%', height: '100%' }}
                   className='rounded-xl shadow-xl backdrop-blur'
                 />
-                <div className='absolute top-4 right-4'>
+                <div className='absolute top-2 right-2'>
                   <div className='bg-orange-500 dark:bg-teal-500 text-white rounded-full w-12 h-12 flex items-center justify-center relative'>
                     <span className='text-black p-2'>{movieIndex + 1}/10</span>
                     <div className='absolute inset-0 rounded-full border-4 border-transparent'></div>

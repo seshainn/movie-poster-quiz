@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { FileEdit } from 'lucide-react'
 import { trpc } from '@/app/_trpc/client'
-import { TRPCError } from '@trpc/server'
 
 const movieSchema = z.object({
   rightans: z.string().min(1),

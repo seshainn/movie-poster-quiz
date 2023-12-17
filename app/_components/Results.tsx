@@ -86,6 +86,9 @@ const Results = ({
                   >
                     {movie.wrong3}
                   </p>
+                  {!movie.chosen && (
+                    <p className='text-red-500 font-semibold'>Not Answered</p>
+                  )}
                 </div>
               </div>
             ))}

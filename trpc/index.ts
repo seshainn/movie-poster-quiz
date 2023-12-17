@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { cryptoRandomStringAsync } from 'crypto-random-string'
 import { sendEmail } from '@/utils/mail'
 import { TRPCError } from '@trpc/server'
+import lqip from 'lqip-modern'
 
 export const appRouter = router({
   loginWithOtp: publicProcedure
@@ -117,6 +118,9 @@ export const appRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       const approved = ctx.role === 'admin' ? true : false
+      const imgData = await fetch(input.url)
+      const arrayBufferData = await imgData.arrayBuffer()
+      const lqipData = await lqip(Buffer.from(arrayBufferData))
       if (ctx?.email) {
         const existingUser = await db.user.findUnique({
           where: {
@@ -128,6 +132,9 @@ export const appRouter = router({
             data: {
               id: input.id,
               url: input.url,
+              width: lqipData.metadata.originalWidth,
+              height: lqipData.metadata.originalHeight,
+              blururl: lqipData.metadata.dataURIBase64,
               rightans: input.rightans,
               wrong1: input.wrong1,
               wrong2: input.wrong2,
@@ -154,7 +161,7 @@ export const appRouter = router({
     }),
   moviesForNewgame: privateProcedure.query(async () => {
     const movies = await db.$queryRaw`
-    SELECT id, url, rightans, wrong1, wrong2, wrong3, chosen, RAND() as randomNumber
+    SELECT id, url, blururl, rightans, wrong1, wrong2, wrong3, chosen, RAND() as randomNumber
     FROM Movie
     WHERE approved = true
     ORDER BY randomNumber
