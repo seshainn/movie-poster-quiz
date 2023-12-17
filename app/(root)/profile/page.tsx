@@ -15,6 +15,7 @@ const initialUserState: User = {
 
 const Page = () => {
   const [userData, setUserData] = useState<User>(initialUserState)
+  const [userMessage, setUserMessage] = useState('')
 
   const { refetch, isLoading, isFetching } = trpc.getUserProfile.useQuery(
     undefined,
@@ -22,6 +23,9 @@ const Page = () => {
       enabled: false,
       onSuccess: (user: User) => {
         setUserData(user)
+      },
+      onError: (err) => {
+        setUserMessage(err.message)
       },
     }
   )
@@ -45,7 +49,9 @@ const Page = () => {
       />
       {!isLoading && !isFetching && (
         <div className='flex flex-col text-darkOrange dark:text-lightTeal'>
-          <h1 className='text-xl font-bold'>{userData.email}</h1>
+          <h1 className='text-xl font-bold'>
+            {userMessage ? userMessage : userData.email}
+          </h1>
           <p className='text-lg mt-10'>
             Number of games played: {userData.numberOfGames}
           </p>
