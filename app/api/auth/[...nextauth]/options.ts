@@ -4,6 +4,7 @@ import Credentials from 'next-auth/providers/credentials'
 
 import { AuthOptions, ISODateString } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
+import { db } from '@/db'
 
 export type CustomUser = {
   id?: string | null
@@ -80,8 +81,27 @@ export const options: AuthOptions = {
       },
     }),
   ],
-  //callbacks are executed at the end of all above logic. Here user.role is used to add role field in JWT and session.
+  //callbacks are executed at the end of all above logic. Here user.role is used to add role field in JWT and session. Also, user is added to database after signIn using google or github
   callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account?.provider === 'google' || account?.provider === 'github') {
+        const existingUser = await db.user.findUnique({
+          where: {
+            email: profile?.email,
+          },
+        })
+        if (!existingUser && profile?.email) {
+          await db.user.create({
+            data: {
+              email: profile?.email,
+              numberOfGames: 0,
+              highestScore: 0,
+            },
+          })
+        }
+      }
+      return true
+    },
     async jwt({ token, user }: { token: JWT; user: CustomUser }) {
       if (user) token.role = user.role
       return token
