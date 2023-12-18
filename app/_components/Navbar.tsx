@@ -24,7 +24,7 @@ const Navbar = () => {
           className='opacity-30'
         />
         {status != 'loading' && (
-          <div className='absolute flex-between w-full px-10 z-20'>
+          <div className='absolute flex-between w-full px-4 md:px-10 z-20'>
             <Link href='/'>
               <div className='flex-center'>
                 <div className='border rounded-full bg-mediumOrange dark:bg-lightTeal p-0.5'>
@@ -37,9 +37,11 @@ const Navbar = () => {
                 </p>
               </div>
             </Link>
-            <h1 className='dark:text-lightTeal text-darkOrange italic font-semibold text-lg max-md:hidden'>
-              welcome {session?.user?.email?.split('@')[0]}
-            </h1>
+            {session?.user?.email && (
+              <h1 className='dark:text-lightTeal text-darkOrange italic font-semibold text-lg max-md:hidden'>
+                welcome {session?.user?.email?.split('@')[0]}
+              </h1>
+            )}
             <div className='space-x-6 flex-between'>
               {mode === 'light' ? (
                 <div
@@ -115,7 +117,7 @@ const Navbar = () => {
 
                     <Link
                       href='/profile'
-                      className='absolute border-b-2 border-hover top-[35%]'
+                      className='absolute border-b-2 border-hover font-bold top-[35%]'
                       onClick={() => {
                         const hambutton = document.querySelector('#hamburger')
                         if (hambutton) {
@@ -129,7 +131,7 @@ const Navbar = () => {
 
                     <Link
                       href='/create-question'
-                      className='absolute border-b-2 border-hover top-[45%]'
+                      className='absolute border-b-2 border-hover font-bold top-[45%]'
                       onClick={() => {
                         const hambutton = document.querySelector('#hamburger')
                         if (hambutton) {
@@ -142,7 +144,7 @@ const Navbar = () => {
                     </Link>
                     <Link
                       href='/newgame'
-                      className='absolute border-b-2 border-hover top-[55%]'
+                      className='absolute border-b-2 border-hover font-bold top-[55%]'
                       onClick={() => {
                         const hambutton = document.querySelector('#hamburger')
                         if (hambutton) {

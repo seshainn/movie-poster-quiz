@@ -10,7 +10,7 @@ const Login = () => {
   const { otpSuccess, loginMessage } = useTheme()
 
   return (
-    <div className='flex min-h-screen flex-col items-center justify-between p-24 bg-slate-100'>
+    <div className='flex min-h-screen flex-col items-center justify-between px-4 py-10 md:px-24 bg-slate-100'>
       <div className='flex flex-col items-center justify-center bg-white rounded-xl space-y-5 p-8 w-full max-w-lg'>
         <h1 className='text-black text-xl font-bold'>{loginMessage}</h1>
         <div className='w-full'>{otpSuccess ? <Otpform /> : <Emailform />}</div>
@@ -31,7 +31,7 @@ const Login = () => {
             })
           }}
         >
-          <span className='mr-6 inline-block'>
+          <span className='mr-2 md:mr-6 inline-block'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 50 50'
@@ -60,7 +60,7 @@ const Login = () => {
             })
           }}
         >
-          <span className='mr-6 inline-block'>
+          <span className='mr-2 md:mr-6 inline-block'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               x='0px'

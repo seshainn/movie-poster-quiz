@@ -119,7 +119,7 @@ const Page = () => {
       {movieQuestions[movieIndex]
         ? !isLoading &&
           !isFetching && (
-            <div className='flex max-md:flex-col flex-center px-12 space-y-6 mt-14'>
+            <div className='flex max-md:flex-col flex-center px-12 max-md:space-y-10 mt-14'>
               <div className='w-full md:w-3/5 h-full flex-center rounded-xl shadow-xl overflow-hidden backdrop-blur relative'>
                 <Image
                   src={movieQuestions[movieIndex].url}
@@ -133,8 +133,10 @@ const Page = () => {
                   className='rounded-xl shadow-xl backdrop-blur'
                 />
                 <div className='absolute top-2 right-2'>
-                  <div className='bg-orange-500 dark:bg-teal-500 text-white rounded-full w-12 h-12 flex items-center justify-center relative'>
-                    <span className='text-black p-2'>{movieIndex + 1}/10</span>
+                  <div className='bg-orange-500 dark:bg-teal-500 text-white rounded-full w-8 md:w-12 h-8 md:h-12 flex items-center justify-center relative'>
+                    <span className='text-black tracking-tighter max-md:text-[12px] p-2'>
+                      {movieIndex + 1}/10
+                    </span>
                     <div className='absolute inset-0 rounded-full border-4 border-transparent'></div>
                     <div className='absolute inset-0 rounded-full border-4 border-orange-400 dark:border-teal-400 transform -rotate-45 z-10'></div>
                   </div>

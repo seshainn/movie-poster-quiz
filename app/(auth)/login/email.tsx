@@ -57,7 +57,7 @@ const Emailform = () => {
           </div>
           <button
             type='submit'
-            className='w-full flex flex-center rounded-xl bg-color px-4 py-2 text-lg gap-6'
+            className='w-full flex flex-center rounded-xl bg-color px-4 py-2 text-lg gap-2 md:6'
             disabled={isLoading}
           >
             <svg
