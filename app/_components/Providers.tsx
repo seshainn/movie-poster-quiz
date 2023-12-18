@@ -10,10 +10,7 @@ export const Providers = ({ children }: PropsWithChildren) => {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url:
-            process.env.NODE_ENV === 'production'
-              ? process.env.PROD_DOMAIN!
-              : 'http://localhost:3000/api/trpc',
+          url: 'https://movie-poster-quiz.vercel.app/api/trpc',
         }),
       ],
     })
