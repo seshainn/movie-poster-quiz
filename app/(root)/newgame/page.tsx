@@ -30,7 +30,7 @@ const Page = () => {
       setMovieIndex((prev) => prev + 1)
     }
   }
-
+  // @ts-expect-error
   const { refetch, isLoading, isFetching } = trpc.moviesForNewgame.useQuery(
     undefined,
     {
