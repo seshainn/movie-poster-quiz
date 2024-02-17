@@ -4,7 +4,6 @@ import Image from 'next/image'
 type Movie = {
   id: string
   url: string
-  randomNumber: number
   rightans: string
   wrong1: string
   wrong2: string

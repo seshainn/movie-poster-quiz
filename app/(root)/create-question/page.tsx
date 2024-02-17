@@ -61,7 +61,6 @@ const Page = () => {
       const resdata = await response.json()
       mutate(
         {
-          id: resdata.public_id,
           url: resdata.secure_url,
           rightans: data.rightans,
           wrong1: data.wrong1,

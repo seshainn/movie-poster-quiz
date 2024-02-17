@@ -113,7 +113,6 @@ export const appRouter = router({
         wrong1: z.string(),
         wrong2: z.string(),
         wrong3: z.string(),
-        id: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -130,7 +129,6 @@ export const appRouter = router({
         if (existingUser) {
           await db.movie.create({
             data: {
-              id: input.id,
               url: input.url,
               width: lqipData.metadata.originalWidth,
               height: lqipData.metadata.originalHeight,
@@ -160,12 +158,32 @@ export const appRouter = router({
       return { success: true }
     }),
   moviesForNewgame: privateProcedure.query(async () => {
-    const movies = await db.$queryRaw`
-    SELECT id, url, blururl, rightans, wrong1, wrong2, wrong3, chosen, RAND() as randomNumber
-    FROM Movie
-    WHERE approved = true
-    ORDER BY randomNumber
-    LIMIT 10;`
+    const movies = await db.movie.aggregateRaw({
+      pipeline: [
+        {
+          $match: {
+            approved: true,
+          },
+        },
+        {
+          $project: {
+            id: 1,
+            url: 1,
+            blururl: 1,
+            rightans: 1,
+            wrong1: 1,
+            wrong2: 1,
+            wrong3: 1,
+            chosen: 1,
+          },
+        },
+        {
+          $sample: {
+            size: 10,
+          },
+        },
+      ],
+    })
     return movies
   }),
 })

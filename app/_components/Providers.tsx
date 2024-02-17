@@ -11,6 +11,7 @@ export const Providers = ({ children }: PropsWithChildren) => {
       links: [
         httpBatchLink({
           url: 'https://movie-poster-quiz.vercel.app/api/trpc',
+          //url: 'http://localhost:3000/api/trpc',
         }),
       ],
     })

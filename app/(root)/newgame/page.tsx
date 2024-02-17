@@ -8,7 +8,6 @@ type Movie = {
   id: string
   url: string
   blururl: string
-  randomNumber: number
   rightans: string
   wrong1: string
   wrong2: string
